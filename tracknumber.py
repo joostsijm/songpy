@@ -1,6 +1,7 @@
 #!/usr/bin/env python2.7
 
 from mutagen.easyid3 import EasyID3
+from mutagen.mp3 import MP3
 from mutagen.oggvorbis import OggVorbis
 import audioFunction
 import os
@@ -28,4 +29,4 @@ def formatNumber(fname):
 
 def getTracknumber(fname):
     audio = formatNumber(fname)
-    return audio['tracknumber'][0].encode('ascii', 'ignore')
+    return str(audio['tracknumber'][0])
