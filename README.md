@@ -1,18 +1,21 @@
 # SongPy
-Music organizer written in Python.
+Music organizer written in Python 3.
 
 ## About
-**SongPy** is intended as command line program to be able to organize your music library. It still has minimal suport for filetypes.
+Intended as command line program to be able to organize your music library.
+Still minimal suport for file types but might improve in the future.
 
-Currently supported filetypes: .MP3, .OGG
+Currentl supported file types: 
+* .MP3
+* .OGG
 
 ## Quick Start
-To transver your music libary to a new location and organize the songs you use the following:
+To transfer your music libary to a new location and organize the songs you use the following:
 ```
-python2 music-organizer.py <path> <destination>
+python music-organizer.py <path> <destination>
 ```
-Make sure your libary only exits of folders and files of the supported filetypes. If you want to delete unrecognized file extensions run the `-e` flag.   
-For a rundown of the availble flags read the synopsis. 
+Make sure your library only exits of folders and files of the supported file types.
+Would you like more options of organizing your library read the synopsis for a more details
 
 ## Synopsis
 	usage: music-organizer.py [-h] [-d] [-e] [-a] [-A] [-n] [-C] path dest
@@ -39,6 +42,9 @@ For a rundown of the availble flags read the synopsis.
 	  -A, --artist          Place the songs or albums in a artist folder.
 	  -n, --number          Adds number in front of sorted songs
 	  -C, --capital         Makes the first letter of a song capital.
+
+## Contributing
+Feel free to contribute to this repository by means of a pull-request.
 
 ## License
 This program _SongPy_ is published under the term of the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
