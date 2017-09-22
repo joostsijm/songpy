@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3.6
 
 """
 This script (music-organizer.py) organizes my music collection for
@@ -21,39 +21,43 @@ import tracknumber
 import audioFunction
 
 parser = argparse.ArgumentParser(
-        description='''Organizes a music collection using tag information.
-    The directory format is that the music collection consists of
-    artist subdirectories, and there are 2 modes to operate on
-    the entire collection or a single artist.
-    '''
-    )
+        description="""Organizes a music collection using tag information.
+        Some features described in the synopsis might not work as expect
+        so be cautious and backup your collection first.""")
+
 parser.add_argument("path",
-        help='''The path to your music folder.''')
+                    help="The path to your music folder")
+
 parser.add_argument("dest",
-        default=".",
-        help='''Path to the destination of your libary.''')
-parser.add_argument('-d','--delete-conflicts', action='store_true',
-        dest='delete_conflicts',
-        help='''If an artist has duplicate tracks with the same name,
-                    delete them. Note this might always be best in case an
-                    artist has multiple versions. To keep multiple versions,
-                    fix the tag information.''')
-parser.add_argument('-e','--delete-unrecognized', action='store_true',
-        dest='delete_unrecognized',
-        help='''Delete unregcognized extensions''')
-parser.add_argument('-a','--album', action='store_true',
-        dest='album',
-        help='''Adds album folder inside the artist folder to sort out albums.''')
+                    default=".",
+                    help="Path to the destination of your library")
+
+parser.add_argument('-d', '--delete-conflicts', action='store_true',
+                    dest='delete_conflicts',
+                    help="Delete conflicting filenames in the same directory")
+
+parser.add_argument('-e', '--delete-unrecognized', action='store_true',
+                    dest='delete_unrecognized',
+                    help="Delete unrecognized extensions")
+
+parser.add_argument('-a', '--album', action='store_true',
+                    dest='album',
+                    help="Adds album folder inside the artist folder")
+
 parser.add_argument('-A', '--artist', action='store_true',
-        dest='artist',
-        help='''Place the songs or albums in a artist folder.''')
-parser.add_argument('-n','--number', action='store_true',
-        dest='number',
-        help='''Adds number in front of sorted songs''')
-parser.add_argument('-C','--capital', action='store_true',
-        dest='capital',
-        help='''Makes the first letter of a song capital.''')
+                    dest='artist',
+                    help="Place the songs or albums in an artist folder")
+
+parser.add_argument('-n', '--number', action='store_true',
+                    dest='number',
+                    help="Adds number in front of sorted songs")
+
+parser.add_argument('-C', '--capital', action='store_true',
+                    dest='capital',
+                    help="Make the first letter of words capital")
+
 args = parser.parse_args()
+
 
 def artist(path):
     print("Organizing artist")
@@ -78,7 +82,7 @@ def artist(path):
                     if extdir in delete_dirs:
                         delete_dirs.remove(extdir)
 
-        # Add subdirectories to a list 
+        # Add subdirectories to a list
         for subdirname in dirnames:
             delete_dirs.append(subdirname)
 
@@ -86,12 +90,13 @@ def artist(path):
     for d in delete_dirs:
         shutil.rmtree(os.path.join(".", d), ignore_errors=True)
 
+
 def song(filename):
-    #    if filename[0] == '.':
-#       print("Ignoring dotfile: '{}'".format(filename))
-#       return
+    # if filename[0] == '.':
+    #    print("Ignoring dotfile: '{}'".format(filename))
+    #    return
     ext = os.path.splitext(filename)[1]
-    if ext in (".mp3" , ".ogg"):
+    if ext in (".mp3", ".ogg"):
         print("Organizing song '" + filename + "'.")
         try:
             audio = audioFunction.returnAudio(filename)
@@ -115,7 +120,7 @@ def song(filename):
                 os.mkdir(errorpath)
             errorfile = errorpath + "/" + filename.split("/")[-1]
             print(errorfile)
-            os.rename(filename, errorfile) 
+            os.rename(filename, errorfile)
             return "error"
 
         neatArtist = toNeat.toNeat(artist, args)
@@ -123,6 +128,7 @@ def song(filename):
             neatTitle = neatTracknumber + "." + toNeat.toNeat(title, args)
         else:
             neatTitle = toNeat.toNeat(title, args)
+
         if args.album:
             neatAlbum = toNeat.toNeat(album, args)
         print("    neatArtist: " + neatArtist)
@@ -134,7 +140,7 @@ def song(filename):
         if not os.path.isdir(newpath):
             os.mkdir(newpath)
         if args.album:
-            if not os.path.isdir(newpath+ "/" + neatAlbum):
+            if not os.path.isdir(newpath + "/" + neatAlbum):
                 os.mkdir(newpath + "/" + neatAlbum)
             newFullPath = os.path.join(newpath, neatAlbum, neatTitle + ext)
         else:
@@ -149,12 +155,13 @@ def song(filename):
                 else:
                     print("Error: File exists: '" + newFullPath + "'")
                     return os.path.split(newFullPath)[0]
+
             else:
                 os.rename(filename, newFullPath)
                 return "succes"
 
     else:
-        print("Error: Unrecognized music file extension '{}'.".format(filename))
+        print("Error: Unrecognized music file extension " + filename + ".")
         return "unrecognized"
 
 
@@ -166,8 +173,10 @@ def collection(path):
                 artist(f)
             else:
                 collection(f)
+
         elif os.path.isfile(f):
             song(f)
 
 collection(args.path)
 print("\nComplete!")
+
