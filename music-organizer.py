@@ -129,20 +129,20 @@ def song(filename):
         else:
             neatTitle = toNeat.toNeat(title, args)
 
-        if args.album:
-            neatAlbum = toNeat.toNeat(album, args)
         print("    neatArtist: " + neatArtist)
         print("    neatTitle: " + neatTitle)
         newpath = args.dest
+        if args.artist:
+            newpath = newpath + "/" + neatArtist
+            if not os.path.isdir(newpath):
+                os.mkdir(newpath)
         if args.album:
+            neatAlbum = toNeat.toNeat(album, args)
             print("    neatAlbum: " + neatAlbum)
             newpath = newpath + "/" + neatAlbum
-        if not os.path.isdir(newpath):
-            os.mkdir(newpath)
-        if args.album:
-            if not os.path.isdir(newpath + "/" + neatAlbum):
-                os.mkdir(newpath + "/" + neatAlbum)
-            newFullPath = os.path.join(newpath, neatAlbum, neatTitle + ext)
+            if not os.path.isdir(newpath):
+                os.mkdir(newpath)
+            newFullPath = os.path.join(newpath, neatTitle + ext)
         else:
             newFullPath = os.path.join(newpath, neatTitle + ext)
 
@@ -177,6 +177,8 @@ def collection(path):
         elif os.path.isfile(f):
             song(f)
 
+if not os.path.isdir(args.dest):
+    os.mkdir(newpath)
 collection(args.path)
 print("\nComplete!")
 
