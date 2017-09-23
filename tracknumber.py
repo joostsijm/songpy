@@ -1,11 +1,9 @@
 #!/usr/bin/env python3.6
 
-from mutagen.easyid3 import EasyID3
-from mutagen.mp3 import MP3
-from mutagen.oggvorbis import OggVorbis
 import audioFunction
 import os
 import re
+
 
 def fixTracknumber(fname):
     print("fixTracknumber")
