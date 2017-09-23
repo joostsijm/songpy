@@ -13,8 +13,8 @@ import os
 import re
 import shutil
 import sys
-import toNeat
-import tracknumber
+import src.toNeat
+import src.tracknumber
 import audioFunction
 
 parser = argparse.ArgumentParser(
@@ -103,7 +103,7 @@ def song(filename):
                 album = str(audio['album'][0])
             if args.number:
                 try:
-                    neatTracknumber = tracknumber.getTracknumber(filename)
+                    neatTracknumber = src.tracknumber.getTracknumber(filename)
                 except:
                     neatTracknumber = "0"
             print("    artist: " + artist)
@@ -120,11 +120,11 @@ def song(filename):
             os.rename(filename, errorfile)
             return "error"
 
-        neatArtist = toNeat.toNeat(artist, args)
+        neatArtist = src.toNeat.toNeat(artist, args)
         if args.number:
-            neatTitle = neatTracknumber + "." + toNeat.toNeat(title, args)
+            neatTitle = neatTracknumber + "." + src.toNeat.toNeat(title, args)
         else:
-            neatTitle = toNeat.toNeat(title, args)
+            neatTitle = src.toNeat.toNeat(title, args)
 
         print("    neatArtist: " + neatArtist)
         print("    neatTitle: " + neatTitle)
@@ -134,7 +134,7 @@ def song(filename):
             if not os.path.isdir(newpath):
                 os.mkdir(newpath)
         if args.album:
-            neatAlbum = toNeat.toNeat(album, args)
+            neatAlbum = src.toNeat.toNeat(album, args)
             print("    neatAlbum: " + neatAlbum)
             newpath = newpath + "/" + neatAlbum
             if not os.path.isdir(newpath):
