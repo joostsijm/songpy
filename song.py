@@ -23,35 +23,47 @@ parser = argparse.ArgumentParser(
         so be cautious and backup your collection first.""")
 
 parser.add_argument("path",
-                    help="The path to your music folder")
+        help="The path to your music folder")
 
 parser.add_argument("dest",
-                    default=".",
-                    help="Path to the destination of your library")
+        default=".",
+        help="Path to the destination of your library")
 
-parser.add_argument('-d', '--delete-conflicts', action='store_true',
-                    dest='delete_conflicts',
-                    help="Delete conflicting filenames in the same directory")
+parser.add_argument('-d',
+        '--delete-conflicts',
+        action='store_true',
+        dest='delete_conflicts',
+        help="Delete conflicting filenames in the same directory")
 
-parser.add_argument('-e', '--delete-unrecognized', action='store_true',
-                    dest='delete_unrecognized',
-                    help="Delete unrecognized extensions")
+parser.add_argument('-e',
+        '--delete-unrecognized',
+        action='store_true',
+        dest='delete_unrecognized',
+        help="Delete unrecognized extensions")
 
-parser.add_argument('-a', '--album', action='store_true',
-                    dest='album',
-                    help="Adds album folder inside the artist folder")
+parser.add_argument('-a',
+        '--album',
+        action='store_true',
+        dest='album',
+        help="Adds album folder inside the artist folder")
 
-parser.add_argument('-A', '--artist', action='store_true',
-                    dest='artist',
-                    help="Place the songs or albums in an artist folder")
+parser.add_argument('-A',
+        '--artist',
+        action='store_true',
+        dest='artist',
+        help="Place the songs or albums in an artist folder")
 
-parser.add_argument('-n', '--number', action='store_true',
-                    dest='number',
-                    help="Adds number in front of sorted songs")
+parser.add_argument('-n',
+        '--number',
+        action='store_true',
+        dest='number',
+        help="Adds number in front of sorted songs")
 
-parser.add_argument('-C', '--capital', action='store_true',
-                    dest='capital',
-                    help="Make the first letter of words capital")
+parser.add_argument('-C',
+        '--capital',
+        action='store_true',
+        dest='capital',
+        help="Make the first letter of words capital")
 
 args = parser.parse_args()
 

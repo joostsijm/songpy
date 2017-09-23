@@ -27,10 +27,9 @@ def toNeat(s, args):
     s = s.title().replace("&", "and")
 
     # Ensure the string is only alphanumeric with '-', '+', and '='.
-    if args.capital:
-        search = re.search("[^0-9a-zA-Z\-\+\=]", s)
-    else:
-        search = re.search("[^0-9a-z\-\+\=]", s)
+    if not args.capital:
+        s = s.lower()
+    search = re.search("[^0-9a-zA-Z\-\+\=]", s)
     if search:
         print("Error: Unrecognized character in '" + s + "'")
         sys.exit(-42)
