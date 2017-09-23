@@ -14,9 +14,6 @@ import re
 import shutil
 import sys
 import toNeat
-from mutagen.mp3 import MP3
-from mutagen.easyid3 import EasyID3
-from mutagen.oggvorbis import OggVorbis
 import tracknumber
 import audioFunction
 
@@ -96,7 +93,7 @@ def song(filename):
     #    print("Ignoring dotfile: '{}'".format(filename))
     #    return
     ext = os.path.splitext(filename)[1]
-    if ext in (".mp3", ".ogg"):
+    if ext in (".mp3", ".ogg", ".flac"):
         print("Organizing song '" + filename + "'.")
         try:
             audio = audioFunction.returnAudio(filename)
@@ -178,7 +175,8 @@ def collection(path):
             song(f)
 
 if not os.path.isdir(args.dest):
-    os.mkdir(newpath)
+    os.mkdir(args.dest)
+
 collection(args.path)
 print("\nComplete!")
 
