@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3.6
 
 from mutagen.easyid3 import EasyID3
 from mutagen.mp3 import MP3

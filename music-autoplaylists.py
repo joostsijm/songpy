@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3.6
 
 __author__ = ['[Brandon Amos](http://bamos.github.io)']
 __date__ = '2015.04.09'
