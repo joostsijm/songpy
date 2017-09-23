@@ -27,7 +27,7 @@ def main():
     args = parser.parse_args()
 
     titleList = defaultdict(list)
-    
+
     for dpath, dnames, fnames in os.walk(args.musicDir):
         if '.git' in dpath:
             continue
@@ -46,7 +46,7 @@ def main():
             elif args.album:
                 if 'album' in audio:
                     assert(len(audio['album']) == 1)
-                    title = toNeat.toNeat(str(audio['album'][0]), args) 
+                    title = toNeat.toNeat(str(audio['album'][0]), args)
                 else:
                     title = 'Unknown'
                 titleList[title].append(p)

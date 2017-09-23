@@ -2,7 +2,7 @@
 
 from mutagen.mp3 import MP3
 from mutagen.easyid3 import EasyID3
-from mutagen.oggvorbis import OggVorbis 
+from mutagen.oggvorbis import OggVorbis
 from mutagen.flac import FLAC
 import os
 
