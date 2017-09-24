@@ -13,9 +13,11 @@ import os
 import re
 import shutil
 import sys
-from mutagen.easyid3 import EasyID3
 from collections import defaultdict
+
+import audioFunction
 import src.toNeat
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -43,8 +45,8 @@ def main():
         for fname in fnames:
             if os.path.splitext(fname)[1] != '.mp3':
                 continue
-            p = os.path.abspath(os.path.join(dpath, fname))
-            audio = EasyID3(p)
+            filePath = os.path.abspath(os.path.join(dpath, fname))
+            audio = audioFunction.returnAudio(filePath)
             if args.genre:
                 if 'genre' in audio:
                     assert(len(audio['genre']) == 1)
@@ -52,24 +54,28 @@ def main():
                 else:
                     title = 'Unknown'
 
-                titleList[title].append(p)
+                titleList[title].append(filePath)
             elif args.album:
-                if 'album' in audio:
-                    assert(len(audio['album']) == 1)
-                    title = src.toNeat.toNeat(str(audio['album'][1]), args)
+                if 'artist' in audio or 'album' in audio:
+                    if 'artist' in audio :
+                        assert(len(audio['artist']) == 1)
+                        title = src.toNeat.toNeat(audio["artist"][0], args)
+                    if 'album' in audio:
+                        assert(len(audio['album']) == 1)
+                        title += "-" + src.toNeat.toNeat(audio["album"][0], args)
                 else:
                     title = 'Unknown'
 
-                titleList[title].append(p)
+                titleList[title].append(filePath)
 
     if os.path.exists(args.dest):
         shutil.rmtree(args.dest)
     os.makedirs(args.dest)
 
-    for titleList, songs in titleList.items():
-        p = os.path.join(args.dest, title + '.m3u')
-        print("Creating playlist: " + p)
-        with open(p, 'w') as f:
+    for item, songs in titleList.items():
+        filePath = os.path.join(args.dest, item + '.m3u')
+        print("Creating playlist: " + filePath)
+        with open(filePath, 'w') as f:
             f.write("#EXTM3U\n")
             f.write("\n".join(sorted(songs)) + "\n")
 
