@@ -3,7 +3,7 @@
 import re
 import sys
 
-# Maps a string such as 'The Beatles' to 'the-beatles'.
+# Maps a string such as 'The Beatles' to 'the_beatles'.
 def toNeat(s, args):
     # Put spaces between and remove blank characters.
     blankCharsPad = r"()\[\],.\\\?\#/\!\$\:\;"
@@ -12,7 +12,7 @@ def toNeat(s, args):
     s = re.sub("[" + blankCharsPad + blankCharsNoPad + "]", "", s)
 
     # Replace spaces with a single dash.
-    s = re.sub(r"[ \*\_]+", "-", s)
+    s = re.sub(r"[ \*\_]+", "_", s)
     s = re.sub("-+", "-", s)
     s = re.sub("^-*", "", s)
     s = re.sub("-*$", "", s)
@@ -26,10 +26,10 @@ def toNeat(s, args):
 
     s = s.title().replace("&", "and")
 
-    # Ensure the string is only alphanumeric with '-', '+', and '='.
+    # Ensure the string is only alphanumeric with '-', '+', and '+'.
     if not args.capital:
         s = s.lower()
-    search = re.search("[^0-9a-zA-Z\-\+\=]", s)
+    search = re.search("[^0-9a-zA-Z\-\+\_]", s)
     if search:
         print("Error: Unrecognized character in '" + s + "'")
         sys.exit(-42)
