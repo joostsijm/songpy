@@ -32,5 +32,6 @@ def toNeat(s, args):
     search = re.search("[^0-9a-zA-Z\-\+\_]", s)
     if search:
         print("Error: Unrecognized character in '" + s + "'")
-        sys.exit(-42)
+        with open("error.log", 'w') as log:
+            log.write(s + "\n");
     return s

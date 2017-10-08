@@ -190,5 +190,8 @@ if not os.path.isdir(args.dest):
     os.mkdir(args.dest)
 
 collection(args.path)
+if os.path.isfile("error.log"):
+    print("__________________")
+    print("Error sorting the following file(s):\n" + open("error.log").read())
 print("\nComplete!")
 
