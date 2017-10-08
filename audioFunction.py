@@ -2,6 +2,7 @@
 
 from mutagen.mp3 import MP3
 from mutagen.easyid3 import EasyID3
+from mutagen.easymp4 import EasyMP4
 from mutagen.oggvorbis import OggVorbis
 from mutagen.flac import FLAC
 import os
@@ -15,4 +16,14 @@ def returnAudio(path):
         audio = OggVorbis(path)
     elif ext == ".flac":
         audio = FLAC(path)
+    elif ext == ".m4a":
+        audio = EasyMP4(path)
     return audio
+
+def validExt():
+    return [
+        ".mp3",
+        ".ogg",
+        ".flac",
+        ".m4a",
+    ]

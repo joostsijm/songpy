@@ -105,7 +105,7 @@ def song(filename):
     #    print("Ignoring dotfile: '{}'".format(filename))
     #    return
     ext = os.path.splitext(filename)[1]
-    if ext in (".mp3", ".ogg", ".flac"):
+    if ext in (audioFunction.validExt()):
         print("Organizing song '" + filename + "'.")
         try:
             audio = audioFunction.returnAudio(filename)
