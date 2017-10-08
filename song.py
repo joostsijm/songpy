@@ -189,7 +189,11 @@ def collection(path):
 if not os.path.isdir(args.dest):
     os.mkdir(args.dest)
 
+if os.path.isfile("error.log"):
+    os.remove("error.log")
+
 collection(args.path)
+
 if os.path.isfile("error.log"):
     print("__________________")
     print("Error sorting the following file(s):\n" + open("error.log").read())
