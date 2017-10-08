@@ -102,7 +102,7 @@ def artist(path):
 
     # deletes subdirectories
     for d in delete_dirs:
-        shutil.rmtree(os.path.join(".", d), ignore_errors=True)
+        shutil.rmtree(os.path.join(path, d))
 
 
 def song(filename):
