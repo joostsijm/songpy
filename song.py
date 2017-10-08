@@ -65,11 +65,16 @@ parser.add_argument('-C',
         dest='capital',
         help="Make the first letter of words capital")
 
+parser.add_argument('-v',
+        '--verbose',
+        action='store_true',
+        dest='verbose',
+        help="More verbose output")
+
 args = parser.parse_args()
 
 
 def artist(path):
-    print("Organizing artist")
     delete_dirs = []
     for dirname, dirnames, filenames in os.walk(path + "/."):
         # Move all the files to the root directory.
@@ -78,13 +83,13 @@ def artist(path):
             # formating song
             returned = song(fullPath)
             if returned is "succes":
-                print("succesful formated")
+                print("Succes  : " + fullPath)
             elif returned is "delete":
-                print("deleted remaining files in folder")
+                print("Deleted remaining files in folder")
             elif returned is "unrecognized":
                 print("Unrecognized files left")
             elif returned is "error":
-                print("error with file")
+                print("Error   : " + fullPath)
             else:
                 returnedlist = returned.split('/')
                 for extdir in returnedlist:
@@ -106,7 +111,6 @@ def song(filename):
     #    return
     ext = os.path.splitext(filename)[1]
     if ext in (audioFunction.validExt()):
-        print("Organizing song '" + filename + "'.")
         try:
             audio = audioFunction.returnAudio(filename)
             artist = str(audio['artist'][0])
@@ -118,17 +122,17 @@ def song(filename):
                     neatTracknumber = src.tracknumber.getTracknumber(filename)
                 except:
                     neatTracknumber = "0"
-            print("    artist: " + artist)
-            print("    title: " + title)
-            if args.album:
-                print("    album: " + album)
+            if args.verbose:
+                print("    artist: " + artist)
+                print("    title: " + title)
+                if args.album:
+                    print("    album: " + album)
+
         except:
-            print("Error: file cannot be read.")
             errorpath = args.dest + "/unknown"
             if not os.path.isdir(errorpath):
                 os.mkdir(errorpath)
             errorfile = errorpath + "/" + filename.split("/")[-1]
-            print(errorfile)
             os.rename(filename, errorfile)
             return "error"
 
@@ -138,8 +142,6 @@ def song(filename):
         else:
             neatTitle = src.toNeat.toNeat(title, args)
 
-        print("    neatArtist: " + neatArtist)
-        print("    neatTitle: " + neatTitle)
         newpath = args.dest
         if args.artist:
             newpath = newpath + "/" + neatArtist
@@ -147,7 +149,6 @@ def song(filename):
                 os.mkdir(newpath)
         if args.album:
             neatAlbum = src.toNeat.toNeat(album, args)
-            print("    neatAlbum: " + neatAlbum)
             newpath = newpath + "/" + neatAlbum
             if not os.path.isdir(newpath):
                 os.mkdir(newpath)
