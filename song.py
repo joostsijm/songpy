@@ -87,7 +87,7 @@ def artist(path):
             elif returned is "delete":
                 print("Deleted remaining files in folder")
             elif returned is "unrecognized":
-                print("Unrecognized files left")
+                print("Error: Unrecognized music file extension " + fullPath + ".")
             elif returned is "error":
                 print("Error   : " + fullPath)
             else:
@@ -171,7 +171,6 @@ def song(filename):
                 return "succes"
 
     else:
-        print("Error: Unrecognized music file extension " + filename + ".")
         return "unrecognized"
 
 
